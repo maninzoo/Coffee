@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Coffee</title>
+  <style>
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    .button:focus {
+        background-color: #ffbf00;
+    }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <div id="search">
+      <input type="text" name="item" size="18" />
+      <button class="button" id="find">찾기</button>
+    </div>
+    <div id="list">
+      <ul>
+        <li>
+          <h4>Espresso</h4>
+        </li>
+        <li>
+          <h4>Espresso Macchiato</h4>
+        </li>
+        <li>
+          <h4>Cappuccino</h4>
+        </li>
+        <li>
+          <h4>Mocha</h4>
+        </li>
+        <li>
+          <h4>Flat White</h4>
+        </li>
+        <li>
+          <h4>Americano</h4>
+        </li>
+        <li>
+          <h4>Cafe Latte</h4>
+        </li>
+        <li>
+          <h4>Espresso Con Panna</h4>
+        </li>          
+      </ul>
+    </div>
+  </div>
+  <script>
+    const list = document.querySelectorAll('li>h4');
+    const item = document.querySelector('input[name="item"]');
+
+    document.addEventListener('click', function(e) {
+      const target = e.target;
+
+      if ( target.localName === 'h4' ) {
+        selectCoffee( target.textContent );
+      } else if( target.localName === 'button' ) {
+        selectCoffee( item.value );
+      }
+    });
+
+    function selectCoffee( selected ) {
+      list.forEach( it => {
+        // console.log( it.textContent );
+        it.style.background = 'white';
+        
+        if( selected === it.textContent ) {
+          it.style.background = 'rgb(222, 98, 38)';
+        }
+      });      
+    } 
+  </script>
+</body>
+</html>
