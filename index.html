@@ -47,8 +47,21 @@
     </div>
   </div>
   <script>
+    const selfID = 'webView1st';
     const list = document.querySelectorAll('li>h4');
     const item = document.querySelector('input[name="item"]');
+
+    let message1 = { 
+      target : 'webView2nd',
+      action : 'navigation',
+      uri: 'http://127.0.0.1:5500/right.html' 
+    };
+
+    let message2 = { 
+      target : 'webView2nd',
+      action : 'select',
+      coffee: '' 
+    };
 
     document.addEventListener('click', function(e) {
       const target = e.target;
@@ -57,16 +70,23 @@
         selectCoffee( target.textContent );
       } else if( target.id === 'find' ) {
         selectCoffee( item.value );
+      } else if( target.id === 'open' ) {
+        window.chrome.webview.postMessage(message1);
       }
     });
 
-    function selectCoffee( selected ) {
+    function selectCoffee( selected, target ) {
       list.forEach( it => {
         // console.log( it.textContent );
         it.style.background = 'white';
         
         if( selected === it.textContent ) {
           it.style.background = 'rgb(222, 98, 38)';
+          
+          if( target !== selfID ) {
+            message2.coffee = selected;
+            window.chrome.webview.postMessage(message2);
+          }
         }
       });      
     } 
